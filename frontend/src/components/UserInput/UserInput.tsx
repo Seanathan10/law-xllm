@@ -14,6 +14,7 @@ import { useChatHandler } from './useChatHandler';
 function UserInput() {
   const { textInput, setTextInput, messages, handleClick, messagesEndRef } = useChatHandler();
   const [selectedOption, setSelectedOption] = useState('openai');
+  const [RAG, setRAG] = useState(false);
   const { isDark } = useContext(AppContext);
 
   const handleKeyDown = useCallback(
@@ -34,6 +35,15 @@ function UserInput() {
 
   const handleSelectChange = (event: SelectChangeEvent) => {
     setSelectedOption(event.target.value);
+  };
+
+  const handleRAGChange = (event: SelectChangeEvent) => {
+    if (event.target.value === "ON") {
+      setRAG(true);
+    }
+    if (event.target.value === "OFF") {
+      setRAG(false);
+    }
   };
 
   return (
@@ -103,6 +113,39 @@ function UserInput() {
             >
               <MenuItem value="openai">OPEN AI</MenuItem>
             </Select>
+
+            <Select
+              displayEmpty
+              onChange={handleRAGChange}
+              sx={{
+                width: '150px', // Adjust the width as needed
+                height: '40px', // Match the height of the Input component
+                marginRight: '8px', // Adjust space to the right of the dropdown
+                '.MuiSelect-select': {
+                  backgroundColor: isDark ? '#202123' : '#BC9F8B',
+                  color: '#FFFFFF',
+                  padding: '10px 14px', // Adjust padding to match input height
+                },
+                '.MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'rgba(0, 0, 0, 0)',
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'rgba(0, 0, 0, 0)',
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                  borderColor: isDark ? 'rgba(255, 255, 255, 1)' : 'rgba(0, 0, 0, 0.15)',
+                  borderWidth: isDark ? '1px' : '2px',
+                },
+                '.MuiSelect-icon': {
+                  color: '#FFFFFF',
+                },
+              }}
+              value={RAG ? "ON" : "OFF"}
+            >
+              <MenuItem value={"ON"}>RAG ON</MenuItem>
+              <MenuItem value={"OFF"}>RAG OFF</MenuItem>
+            </Select>
+
             <Input
               aria-label="Input for chat messages"
               className="flex-grow"
