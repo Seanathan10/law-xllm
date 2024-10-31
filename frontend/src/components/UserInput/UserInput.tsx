@@ -158,7 +158,7 @@ function UserInput() {
             <Button
               aria-label="Send message"
               className="ml-2 custom-white-button"
-              onClick={() => void handleClick()}
+              onClick={() => void handleClick(RAG)}
               size="icon"
               style={{ height: '40px', minWidth: '40px', color: isDark ? '#202123' : '#BC9F8B' }} // Match height with input and select
               variant="outline"
