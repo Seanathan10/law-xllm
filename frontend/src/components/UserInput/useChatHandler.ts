@@ -23,14 +23,14 @@ export const useChatHandler = () => {
     }
   }, [currConversation]);
 
-  const handleClick = async (): Promise<void> => {
+  const handleClick = async (ragEnabled: boolean): Promise<void> => {
     if (textInput.trim() === '') return;
 
     const userMessage: Message = { type: 'user', text: textInput };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
 
     try {
-      const result: Result = await ChatGPTCall(textInput);
+      const result: Result = await ChatGPTCall(textInput, ragEnabled); // send ragEnabled to ChatGPTCall to add RAG support
       const botMessage: Message =
         result.type === 'success'
           ? { type: 'bot', text: result.data }

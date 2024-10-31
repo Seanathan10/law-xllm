@@ -2,8 +2,9 @@ import type { Result } from '@/components/UserInput/types';
 
 import type { ChatGPTResponse } from './type';
 
-async function ChatGPTCall(text: string): Promise<Result> {
+async function ChatGPTCall(text: string, ragEnabled: boolean): Promise<Result> {
   const MODEL_NAME = 'gpt-3.5-turbo';
+  console.log('RAG enabled:', ragEnabled);
   try {
     const res = await fetch('http://127.0.0.1:5000/api/openai', {
       method: 'POST',
@@ -12,6 +13,7 @@ async function ChatGPTCall(text: string): Promise<Result> {
       },
       body: JSON.stringify({
         model: MODEL_NAME,
+        rag: ragEnabled,
         messages: [
           { role: 'user', content: text },
         ],

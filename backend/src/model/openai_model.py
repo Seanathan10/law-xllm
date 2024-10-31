@@ -11,6 +11,7 @@ client = OpenAI(api_key=API_KEY)
 
 
 def handle_openai_request(data):
+    print(f"handle_openai_request with data: {data}")
     try:
         query = data["messages"][0]["content"]
         ans = rag.query(query)
